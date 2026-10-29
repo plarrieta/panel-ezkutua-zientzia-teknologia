@@ -166,7 +166,7 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(
  <p>Aukeratu arloa eta unitatea. Ondoren, hautatu eta ordenatu jokatu nahi dituzun panelak. Irakasleak kontrolatzen du saioa.</p>
  <div id="subjectCards" class="subjectCards"></div>
  <div class="unitPicker"><h2>UNITATEA AUKERATU</h2><div id="unitCards" class="unitCards"></div></div>
- <div id="currentUnitLabel" class="currentUnitLabel">Aukeratu arlo bat eta unitate bat.</div>
+ <div id="currentUnitLabel" class="currentUnitLabel">Aukeratu Matematikako unitate bat edo aldatu arloa.</div>
  <div style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0">
  <button class="miniBtn" onclick="selectAllUnit()">20 PANELAK AUKERATU</button>
  <button class="miniBtn" onclick="randomSession(6)">6 AUSAZ</button>
@@ -210,7 +210,7 @@ let puzzles=[],current=0,grid=[],selectedLetter=null,activeTeam=0,scores=[0,0],i
 const ROWS=4; let COLS=16; let session=[],sessionPosition=0,finished=false;
 
 const VOWELS=['A','E','I','O','U'];
-const VOWEL_COST=100;
+const VOWEL_COST=300;
 const CONSONANT_VALUE=100;
 
 const letters=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
@@ -406,7 +406,7 @@ async function selectLetter(l){
 
   if(isVowel(l) && scores[activeTeam] < VOWEL_COST){
     showInfoMessage('EZ DUZU NAHIKOA PUNTURIK','BOKAL BAT EROSTEKO',1500);
-    status('100 puntu behar dira bokal bat erosteko.');
+    status('300 puntu behar dira bokal bat erosteko.');
     return;
   }
 
@@ -431,14 +431,14 @@ async function revealSelectedLetter(){
     selectedLetter=null;
     isAnimating=false;
     await showInfoMessage('EZ DUZU NAHIKOA PUNTURIK','BOKAL BAT EROSTEKO',1500);
-    status('100 puntu behar dira bokal bat erosteko.');
+    status('300 puntu behar dira bokal bat erosteko.');
     return;
   }
 
   if(vowel){
     scores[activeTeam]-=VOWEL_COST;
     renderTeams();
-    await showInfoMessage('🟡 BOKALA EROSI DA','-100 PUNTU',900);
+    await showInfoMessage('🟡 BOKALA EROSI DA','-300 PUNTU',900);
   }
 
   const matches=[];
@@ -664,7 +664,7 @@ const SUBJECTS=[
  {id:'BG',name:'BIOLOGIA ETA GEOLOGIA',icon:'◈',color:'#8ed47f'},
  {id:'TE',name:'TEKNOLOGIA ETA DIGITALIZAZIOA',icon:'⚙',color:'#c58bff'}
 ];
-let selectedSubject='',selectedUnit='';
+let selectedSubject='MA',selectedUnit='';
 function init(){
  puzzles=EMBEDDED_PANELS;chosen=[];
  renderTeams();renderKeys();showSetup();
@@ -696,7 +696,7 @@ function renderUnits(){
 function panelName(p){return p.pista+' · '+p.panela;}
 function renderSetup(){
  const available=puzzles.map((p,i)=>({...p,index:i})).filter(p=>p.kodea===selectedUnit);
- document.getElementById('currentUnitLabel').textContent=selectedUnit?selectedUnit+' · '+available[0].unitatea+' — 20 PANEL':'Aukeratu arlo bat eta unitate bat.';
+ document.getElementById('currentUnitLabel').textContent=selectedUnit?selectedUnit+' · '+available[0].unitatea+' — 20 PANEL':'Aukeratu Matematikako unitate bat edo aldatu arloa.';
  document.getElementById('availableCount').textContent=available.length;
  const all=document.getElementById('allPanels');all.innerHTML='';
  available.forEach(p=>{
